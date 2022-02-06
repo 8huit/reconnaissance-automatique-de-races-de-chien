@@ -35,7 +35,7 @@ def load_model():
     global dictDogTypes
 
     toto="toutou"
-    model = tf.keras.models.load_model("./models/cnn3")
+    model = tf.keras.models.load_model("./models/cnn_vgg19")
     dictDogTypes = joblib.load("./models/dictDogTypes.jbl.bz2")
 
 @app.get("/")
@@ -52,7 +52,7 @@ async def home(request: Request, upload: UploadFile = File(...)):
     filesize=buf.getbuffer().nbytes
     
     #resize for prediction
-    image_array=cv2.resize(image_array, (128, 128),interpolation = cv2.INTER_NEAREST)
+    image_array=cv2.resize(image_array, (256, 256),interpolation = cv2.INTER_NEAREST)
     #prepare image (add dimension) for model
     image_array=(np.expand_dims(image_array, axis=0)).astype(float)
     
